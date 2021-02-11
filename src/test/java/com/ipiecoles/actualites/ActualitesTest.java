@@ -5,7 +5,7 @@ import org.junit.Test;
 public class ActualitesTest {
 
     @Test
-    public void testActualites{
+    public void testActualites(){
 
         //Given
 
