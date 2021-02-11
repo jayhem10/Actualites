@@ -6,13 +6,13 @@ public class ActualitesData {
     String link;
     String title;
     String description;
-    LocalDate pubDate;
+    String pubDate;
 
     public ActualitesData(){
 
     }
 
-    public ActualitesData(String link, String title, String description, LocalDate pubDate) {
+    public ActualitesData(String link, String title, String description, String pubDate) {
         this.link = link;
         this.title = title;
         this.description = description;
@@ -43,11 +43,11 @@ public class ActualitesData {
         this.description = description;
     }
 
-    public LocalDate getPubDate() {
+    public String getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(LocalDate pubDate) {
+    public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
     }
 

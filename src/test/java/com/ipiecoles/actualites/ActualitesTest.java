@@ -6,7 +6,6 @@ public class ActualitesTest {
 
     @Test
     public void testActualites(){
-
         //Given
 
 
@@ -15,6 +14,5 @@ public class ActualitesTest {
 
 
         //Then
-
     }
 }

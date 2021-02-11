@@ -12,35 +12,28 @@ import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
 
 
 public class Actualites implements Runnable {
 
-    public ArrayList<String> actualites;
+    public ArrayList<ActualitesData> actualites = new ArrayList<>();
 
     private Integer NB_ELEMENTS  = 10;
 
     public void run()
     {
-        try {
-            getActualites(null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+        System.out.println(getJson());
     }
 
     public static void main(String args[])
@@ -50,67 +43,58 @@ public class Actualites implements Runnable {
         t1.start();
     }
 
-    public Document getXmlData(){
-        Document doc = null;
+    public String getJson(){
+        List<ActualitesData> datas;
+        String json = null;
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(new InputSource(new StringReader("https://www.lemonde.fr/rss/une.xml")));
-            doc.getDocumentElement().normalize();
-        } catch (Exception e){
+            System.out.println(getPageContents("https://www.lemonde.fr/rss/une.xml"));
+            datas = getActualites(getPageContents("https://www.lemonde.fr/rss/une.xml"));
+            json = createJson(datas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
             e.printStackTrace();
         }
-
-        return doc;
+        return json;
     }
 
-    public String replaceDoubleQuote(String input){
-        return input.replaceAll("\"", "\\\\\"");
-    }
-    //Ajouter la fonction getXmlData
-    public List<ActualitesData> getActualites(String dataXml) throws IOException, ParserConfigurationException, SAXException {
+    public List<ActualitesData> getActualites(String input) throws IOException, ParserConfigurationException, SAXException {
         try {
-
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            URLConnection urlConnection = new URL("https://www.lemonde.fr/rss/une.xml").openConnection();
-            urlConnection.addRequestProperty("Accept", "application/xml");
-            Document doc = dBuilder.parse(urlConnection.getInputStream());
+            Document doc = dBuilder.parse(new InputSource(new StringReader(input)));
             doc.getDocumentElement().normalize();
-
 
             NodeList nList = doc.getElementsByTagName("item");
 
             for (int temp = 0; temp < NB_ELEMENTS; temp++) {
                 ActualitesData actualitesData = new ActualitesData();
-                String json = "{";
 
                 Node nNode = nList.item(temp);
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
                     Element eElement = (Element) nNode;
-
-                    json += "\"link\": \"" + eElement.getElementsByTagName("link").item(0).getTextContent() + "\"," +
-                            "";
-                    json += "\"title\": \"" + eElement.getElementsByTagName("title").item(0).getTextContent()+ "\"," +
-                            "";
-                    json += "\"description\": \"" + eElement.getElementsByTagName("description").item(0).getTextContent()+ "\"," +
-                            "";
-                    json += "\"pubDate\": \"" + eElement.getElementsByTagName("pubDate").item(0).getTextContent()+ "\"" +
-                            "";
-
-
+                    actualitesData.setLink(eElement.getElementsByTagName("link").item(0).getTextContent());
+                    actualitesData.setTitle(eElement.getElementsByTagName("title").item(0).getTextContent());
+                    actualitesData.setDescription(eElement.getElementsByTagName("description").item(0).getTextContent());
+                    actualitesData.setPubDate(eElement.getElementsByTagName("pubDate").item(0).getTextContent());
                 }
-                json += "}";
-                //actualites.add(actualitesData);
-                System.out.println(json);
+                actualites.add(actualitesData);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //Return la list
-        return null;
+
+        return actualites;
+    }
+
+    public String createJson(List<ActualitesData> actualites){
+        Genson genson = new Genson();
+        String json = genson.serialize(actualites);
+        return json;
     }
 
     private String getPageContents(String address) throws IOException {
