@@ -37,9 +37,9 @@ public class ActualitesTest {
         Assertions.assertThat(actualitesData.get(0).getPubDate()).isEqualTo("Fri, 12 Feb 2021 03:50:16 +0100");
 
         Assertions.assertThat(actualitesData.get(1).getTitle()).isEqualTo("OpenLux : un petit parfum de ’Ndrangheta au Luxembourg");
-        Assertions.assertThat(actualitesData.get(1).getPubDate()).isEqualTo("Fri, 12 Feb 2021 03:50:16 +0100");
+        Assertions.assertThat(actualitesData.get(1).getPubDate()).isEqualTo("Fri, 12 Feb 2021 06:00:15 +0100");
 
-        Assertions.assertThat(actualitesData.get(2).getLink()).isEqualTo("https://www.lemonde.fr/planete/article/2021/02/12/covid-19-face-aux-variants-la-situation-sanitaire-en-france-est-en-sursis_6069668_3244.html");
-        Assertions.assertThat(actualitesData.get(2).getDescription()).isEqualTo("« Les prochaines semaines nous diront si les mesures actuelles suffisent », a reconnu Olivier Véran, alors que le variant britannique est responsable à lui seul de près d’un quart des contaminations au Covid-19.");
+        Assertions.assertThat(actualitesData.get(2).getLink()).isEqualTo("https://www.lemonde.fr/politique/article/2021/02/12/l-islamisme-au-c-ur-d-un-debat-cordial-entre-gerald-darmanin-et-marine-le-pen_6069660_823448.html");
+        Assertions.assertThat(actualitesData.get(2).getDescription()).isEqualTo("Le ministre de l’intérieur a défendu le projet de loi sur le séparatisme, dont la présidente du parti d’extrême droite estime qu’il a été « vidé de son sens ».");
     }
 }

@@ -42,7 +42,7 @@ public class Actualites implements Runnable {
         List<ActualitesData> datas;
         String json = null;
         try {
-            System.out.println(getPageContents("https://www.lemonde.fr/rss/une.xml"));
+            //System.out.println(getPageContents("https://www.lemonde.fr/rss/une.xml"));
             datas = getActualites(getPageContents("https://www.lemonde.fr/rss/une.xml"));
             json = createJson(datas);
         } catch (IOException e) {
