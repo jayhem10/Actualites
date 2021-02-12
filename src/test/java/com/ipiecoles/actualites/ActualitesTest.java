@@ -36,10 +36,5 @@ public class ActualitesTest {
         Assertions.assertThat(actualitesData.get(0).getDescription()).isEqualTo("« Les prochaines semaines nous diront si les mesures actuelles suffisent », a reconnu Olivier Véran, alors que le variant britannique est responsable à lui seul de près d’un quart des contaminations au Covid-19.");
         Assertions.assertThat(actualitesData.get(0).getPubDate()).isEqualTo("Fri, 12 Feb 2021 03:50:16 +0100");
 
-        Assertions.assertThat(actualitesData.get(1).getTitle()).isEqualTo("OpenLux : un petit parfum de ’Ndrangheta au Luxembourg");
-        Assertions.assertThat(actualitesData.get(1).getPubDate()).isEqualTo("Fri, 12 Feb 2021 03:50:16 +0100");
-
-        Assertions.assertThat(actualitesData.get(2).getLink()).isEqualTo("https://www.lemonde.fr/planete/article/2021/02/12/covid-19-face-aux-variants-la-situation-sanitaire-en-france-est-en-sursis_6069668_3244.html");
-        Assertions.assertThat(actualitesData.get(2).getDescription()).isEqualTo("« Les prochaines semaines nous diront si les mesures actuelles suffisent », a reconnu Olivier Véran, alors que le variant britannique est responsable à lui seul de près d’un quart des contaminations au Covid-19.");
     }
 }
