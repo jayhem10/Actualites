@@ -3,16 +3,11 @@ package com.ipiecoles.actualites;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.owlike.genson.Genson;
-import com.owlike.genson.GensonBuilder;
-import com.sun.tools.javac.jvm.Gen;
 
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 
-//util:painsauchoc + mdp:ipi-mdd-324
 public class Handler implements RequestHandler<Object, GatewayResponse>{
     @Override
     public GatewayResponse handleRequest(Object input, Context context){
